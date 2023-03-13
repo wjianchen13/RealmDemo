@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Realm 数据库使用"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="初始化数据库"
+            android:textAllCaps="false"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:onClick="onInit" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="查询数据1"
+            android:textAllCaps="false"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:onClick="onFind1" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="查询数据2"
+            android:textAllCaps="false"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:onClick="onFind2" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="查询数据3"
+            android:textAllCaps="false"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:onClick="onFind3" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="查询数据4"
+            android:textAllCaps="false"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:onClick="onFind4" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="插入数据1"
+            android:textAllCaps="false"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:onClick="onInsert1" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="插入数据2"
+            android:textAllCaps="false"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:onClick="onInsert2" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="插入数据3"
+            android:textAllCaps="false"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:onClick="onInsert3" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="插入数据4"
+            android:textAllCaps="false"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:onClick="onInsert4" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="插入数据5"
+            android:textAllCaps="false"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:onClick="onInsert5" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="插入数据6"
+            android:textAllCaps="false"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:onClick="onInsert6" />
+
+    </LinearLayout>
+</ScrollView>
