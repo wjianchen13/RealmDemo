@@ -91,5 +91,14 @@
             android:layout_marginTop="5dp"
             android:onClick="onTest7" />
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="更新数据1"
+            android:textAllCaps="false"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:onClick="onTest8" />
+
     </LinearLayout>
 </ScrollView>

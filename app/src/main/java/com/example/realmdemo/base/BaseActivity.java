@@ -138,9 +138,16 @@ public class BaseActivity extends AppCompatActivity {
                 t.setAge(100);
             }
         });
+    }
 
-
-
+    /**
+     * 更新数据
+     */
+    public void onTest8(View v) {
+        Test t = mRealm.where(Test.class).findFirst();
+        Test t1 = new Test();
+        t1.setAge(100);
+        t.setAge(100);
     }
 
 }
