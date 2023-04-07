@@ -1,14 +1,14 @@
-package com.example.realmdemo.base;
+package com.example.realmdemo.zip;
 
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.realmdemo.DataProxy;
 import com.example.realmdemo.R;
-import com.example.realmdemo.model.User;
-import com.example.realmdemo.model.User1;
+import com.example.realmdemo.base.Test;
+import com.example.realmdemo.update.CustomMigration;
+import com.example.realmdemo.update.CustomMigration1;
 import com.example.realmdemo.utils.LogUtils;
 
 import io.realm.Realm;
@@ -16,16 +16,16 @@ import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
 /**
- * Realm 创建与关闭
+ * Realm 模拟zip保存
  */
-public class BaseActivity extends AppCompatActivity {
+public class ZipActivity extends AppCompatActivity {
 
     private Realm mRealm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_base);
+        setContentView(R.layout.activity_zip);
     }
 
     /**
@@ -35,9 +35,10 @@ public class BaseActivity extends AppCompatActivity {
     public void onInit(View v) {
         Realm.init(this);
         RealmConfiguration config = new RealmConfiguration.Builder()
-//                .schemaVersion(1)
-                .name("base.realm")  // 指定数据库的名称
-                .deleteRealmIfMigrationNeeded()  // 声明版本冲突时自动删除原数据库
+                .name("zip.realm")  // 指定数据库的名称
+//                .deleteRealmIfMigrationNeeded()  // 声明版本冲突时自动删除原数据库
+                .schemaVersion(1)
+                .migration(new CustomMigration1()) // 升级数据库
                 .build();
         Realm.setDefaultConfiguration(config);
     }

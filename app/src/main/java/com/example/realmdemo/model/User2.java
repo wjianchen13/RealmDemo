@@ -3,7 +3,7 @@ package com.example.realmdemo.model;
 import io.realm.RealmObject;
 import io.realm.annotations.Required;
 
-public class User2 extends RealmObject {
+public class User2/* extends RealmObject*/ {
 
     @Required
     private String name2;

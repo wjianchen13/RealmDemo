@@ -107,22 +107,25 @@ public class RealmHelper {
     public void getRealm5() {
         RealmConfiguration config = new RealmConfiguration.Builder()
                 .name(DB_NAME) //文件名
-//                .schemaVersion(1) //版本号
-                .deleteRealmIfMigrationNeeded() //声明版本冲突时自动删除原数据库
-//                .migration(new CustomMigration()) // 升级数据库
+                .schemaVersion(1) //版本号
+//                .deleteRealmIfMigrationNeeded() //声明版本冲突时自动删除原数据库
+                .migration(new CustomMigration()) // 升级数据库
                 .build();
-//        mRealm = Realm.getInstance(config);
 
         // 如果数据库升级出现异常，则删除旧的数据库，重新创建一个
         try {
             mRealm = Realm.getInstance(config);
+            LogUtils.log("version: " + mRealm.getConfiguration().getSchemaVersion());
+//            throw new RealmMigrationNeededException("", ""); // 模拟获取数据库异常，重新创建
         } catch (RealmMigrationNeededException e){
+            LogUtils.log("RealmMigrationNeededException: ");
             try {
                 Realm.deleteRealm(config);
                 //Realm file has been deleted.
                 mRealm =  Realm.getInstance(config);
             } catch (Exception ex){
-                throw ex;
+                LogUtils.log("Exception: ");
+//                throw ex;
                 //No Realm file to remove.
             }
         }
@@ -231,15 +234,15 @@ public class RealmHelper {
      * 当model存在主键的时候，推荐使用copyToRealmOrUpdate方法插入数据。如果对象存在，就更新该对象；反之，它会创建一个新的对象
      */
     public void insert4() {
-        final User1 user = new User1();
-        user.setName("Jack");
-//        user.setUid(1);
-        mRealm.executeTransactionAsync(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                realm.copyToRealmOrUpdate(user);
-            }
-        });
+//        final User1 user = new User1();
+//        user.setName("Jack");
+////        user.setUid(1);
+//        mRealm.executeTransactionAsync(new Realm.Transaction() {
+//            @Override
+//            public void execute(Realm realm) {
+//                realm.copyToRealmOrUpdate(user);
+//            }
+//        });
     }
 
     /**
@@ -247,15 +250,15 @@ public class RealmHelper {
      * 当model存在主键的时候，推荐使用copyToRealmOrUpdate方法插入数据。如果对象存在，就更新该对象；反之，它会创建一个新的对象
      */
     public void insert5() {
-        final User1 user = new User1();
-        user.setName("test1");
-        user.setSex(1);
-        mRealm.executeTransactionAsync(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                realm.copyToRealm(user);
-            }
-        });
+//        final User1 user = new User1();
+//        user.setName("test1");
+//        user.setSex(1);
+//        mRealm.executeTransactionAsync(new Realm.Transaction() {
+//            @Override
+//            public void execute(Realm realm) {
+//                realm.copyToRealm(user);
+//            }
+//        });
     }
 
 

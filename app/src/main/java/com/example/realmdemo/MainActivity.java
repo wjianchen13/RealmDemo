@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.realmdemo.base.BaseActivity;
+import com.example.realmdemo.zip.ZipActivity;
 
 /**
  * Realm数据库
@@ -25,6 +26,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void onOperation(View v) {
         startActivity(new Intent(this, DataOperationActivity.class));
+    }
+
+    public void onZip(View v) {
+        startActivity(new Intent(this, ZipActivity.class));
     }
 
 }

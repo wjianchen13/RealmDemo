@@ -29,5 +29,14 @@
             android:layout_marginTop="5dp"
             android:onClick="onOperation" />
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="模拟Zip解压数据库"
+            android:textAllCaps="false"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:onClick="onZip" />
+
     </LinearLayout>
 </ScrollView>
