@@ -6,26 +6,24 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.realmdemo.R;
-import com.example.realmdemo.base.Test;
-import com.example.realmdemo.update.CustomMigration;
 import com.example.realmdemo.update.CustomMigration1;
 import com.example.realmdemo.utils.LogUtils;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
-import io.realm.RealmResults;
 
 /**
  * Realm 模拟zip保存
  */
 public class ZipActivity extends AppCompatActivity {
 
-    private Realm mRealm;
+    private ZipDb mZipDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_zip);
+        mZipDb = new ZipDb();
     }
 
     /**
@@ -37,6 +35,7 @@ public class ZipActivity extends AppCompatActivity {
         RealmConfiguration config = new RealmConfiguration.Builder()
                 .name("zip.realm")  // 指定数据库的名称
 //                .deleteRealmIfMigrationNeeded()  // 声明版本冲突时自动删除原数据库
+//                .allowWritesOnUiThread(true)
                 .schemaVersion(1)
                 .migration(new CustomMigration1()) // 升级数据库
                 .build();
@@ -44,125 +43,91 @@ public class ZipActivity extends AppCompatActivity {
     }
 
     /**
-     * 创建或者获取数据库
+     * 查找所有数据
      * @param v
      */
     public void onTest1(View v) {
-        mRealm = Realm.getDefaultInstance();
+        mZipDb.findAll();
+    }
+
+    /**
+     * 删除所有数据
+     */
+    public void onTest2(View v) {
+        mZipDb.deleteAll();
+    }
+
+    /**
+     * 插入数据1
+     */
+    public void onTest3(View v) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mZipDb.getZipBean(1);
+            }
+        }).start();
+    }
+
+    /**
+     * 插入数据2
+     * @param v
+     */
+    public void onTest4(View v) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mZipDb.getZipBean(2);
+            }
+        }).start();
+    }
+
+    /**
+     * 更新数据
+     */
+    public void onTest5(View v) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mZipDb.updateData(1, 150, 200, "update_url", "测试更新", 2);
+            }
+        }).start();
+
+
+    }
+
+    /**
+     * 更新某个数据
+     */
+    public void onTest6(View v) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mZipDb.update(1, 3, "update_url3");
+            }
+        }).start();
+    }
+
+    /**
+     * 查找某个条件数据
+     */
+    public void onTest7(View v) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ZipBean bean = mZipDb.findData(1);
+                if(bean != null)
+                    LogUtils.log(bean.toString());
+            }
+        }).start();
     }
 
     /**
      * 关闭数据库
      */
-    public void onTest2(View v) {
-        if(mRealm != null) {
-            mRealm.close();
-            mRealm = null;
-        }
-    }
-
-    /**
-     * 查询数据
-     */
-    public void onTest3(View v) {
-        RealmResults<Test> testList = mRealm.where(Test.class).findAll();
-        if(testList != null) {
-            for(int i = 0; i < testList.size(); i ++) {
-                Test test = testList.get(i);
-                LogUtils.log("第[" + i + "] 个  name: " + test.getName() + "   age: " + test.getAge());
-            }
-        }
-    }
-
-    /**
-     * 删除数据
-     * @param v
-     */
-    public void onTest4(View v) {
-        RealmResults<Test> testList = mRealm.where(Test.class).findAll();
-        if(testList != null)
-            testList.deleteAllFromRealm();
-    }
-
-    /**
-     * 插入数据
-     */
-    public void onTest5(View v) {
-        // 这里需要线程同步，否则获取的id都可能为1
-        if(mRealm != null) {
-            mRealm.executeTransactionAsync(new Realm.Transaction() {
-                @Override
-                public void execute(Realm realm) {
-                    Test test = realm.createObject(Test.class, getPrimaryKey(realm));
-                    LogUtils.log("primary id1: " + test.getUid());
-                    test.setName("test111");
-                    test.setAge(1);
-                }
-            });
-        }
-
-        final Test test = new Test();
-        test.setUid(getPrimaryKey(mRealm));
-        test.setName("test222");
-        test.setAge(2);
-        LogUtils.log("primary id2: " + test.getUid());
-        mRealm.executeTransactionAsync(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                realm.copyToRealmOrUpdate(test);
-            }
-        });
-    }
-
-    /**
-     * 插入数据
-     */
-    public void onTest6(View v) {
-        final Test test = new Test();
-        test.setUid(getPrimaryKey(mRealm));
-        test.setName("test33");
-        test.setAge(3);
-        LogUtils.log("primary id3: " + test.getUid());
-        mRealm.executeTransactionAsync(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                realm.copyToRealmOrUpdate(test);
-            }
-        });
-    }
-
-    /**
-     * 更新数据
-     */
-    public void onTest7(View v) {
-        mRealm.executeTransactionAsync(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                //先查找后得到User对象
-                Test t = realm.where(Test.class).findFirst();
-                LogUtils.log("t: " + t.toString());
-                t.setAge(100);
-            }
-        });
-    }
-
-    /**
-     * 更新数据
-     */
     public void onTest8(View v) {
-        Test t = mRealm.where(Test.class).findFirst();
-        Test t1 = new Test();
-        t1.setAge(100);
-        t.setAge(100);
+        mZipDb.close();
     }
 
-    private long getPrimaryKey(Realm realm) {
-        long nextId = 0;
-        if(realm != null) {
-            Number maxId = realm.where(Test.class).max("uid");
-            nextId = (maxId == null) ? 1 : maxId.intValue() + 1;
-        }
-        return nextId;
-    }
 
 }

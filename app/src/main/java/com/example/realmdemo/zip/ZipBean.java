@@ -11,7 +11,7 @@ import io.realm.annotations.PrimaryKey;
 public class ZipBean extends RealmObject {
 
 	@PrimaryKey
-	private long zid;
+	private long zid; // 1
     private long zipDownloadSize;      // 已经下载大小
     private long zipAllSize;    // zip文件总大小
     private String zipUrl = "";// 文件下载路径
